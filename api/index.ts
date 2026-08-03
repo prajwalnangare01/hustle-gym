@@ -1,7 +1,8 @@
 // @ts-ignore
+import { toNodeHandler } from "srvx/node";
+// @ts-ignore
 import server from "../dist/server/server.js";
 
-export default async function (request: Request) {
-  const handler = typeof server === "function" ? server : server.fetch;
-  return await handler(request);
-}
+const fetchHandler = typeof server === "function" ? server : server.fetch;
+
+export default toNodeHandler(fetchHandler);
